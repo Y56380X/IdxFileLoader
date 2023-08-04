@@ -73,6 +73,14 @@ and IdxImageFile internal (stream, info) =
             this.ImageSize.Height this.ImageSize.Width
             (fun y x -> buffer[y * this.ImageSize.Height + x])
     }
+    static member LoadAsync (path: string) = task {
+        let! idxFile = IdxFile.LoadAsync path
+        return idxFile :?> IdxImageFile
+    }
+    static member LoadAsync (stream: Stream) = task {
+        let! idxFile = IdxFile.LoadAsync stream
+        return idxFile :?> IdxImageFile
+    }
 
 and IdxLabelFile internal (stream, info) =
     inherit IdxFile (stream, info)
@@ -80,4 +88,12 @@ and IdxLabelFile internal (stream, info) =
     member this.ReadLabelAsync () = task {
         let! buffer = this.ReadDataSegmentAsync ()
         return buffer |> Seq.exactlyOne
+    }
+    static member LoadAsync (path: string) = task {
+        let! idxFile = IdxFile.LoadAsync path
+        return idxFile :?> IdxLabelFile
+    }
+    static member LoadAsync (stream: Stream) = task {
+        let! idxFile = IdxFile.LoadAsync stream
+        return idxFile :?> IdxLabelFile
     }
