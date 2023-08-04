@@ -1,6 +1,7 @@
 ﻿// Copyright Y56380X https://github.com/Y56380X/IdxFileLoader.
 // Licensed under the MIT License.
 
+using System.IO.Compression;
 using CommunityToolkit.HighPerformance;
 using IdxFileLoader;
 
@@ -15,6 +16,7 @@ if (idxFile1 is IdxImageFile imageFile)
 {
     Console.WriteLine($"File 1 contains {imageFile.ImageCount} images ({imageFile.ImageSize})");
     
+    // Extracting twenty pictures max (for this example)
     var extractCount = imageFile.ImageCount < 20 ? imageFile.ImageCount : 20; 
     Console.WriteLine($"Extract {extractCount} images");
     
@@ -32,6 +34,7 @@ if (idxFile2 is IdxLabelFile labelFile)
 {
     Console.WriteLine($"File 2 contains {labelFile.LabelCount} labels");
     
+    // Extracting twenty labels max (for this example)
     var extractCount = labelFile.LabelCount < 20 ? labelFile.LabelCount : 20; 
     Console.WriteLine($"Extract {extractCount} labels");
     
@@ -40,3 +43,11 @@ if (idxFile2 is IdxLabelFile labelFile)
         labels[i] = await labelFile.ReadLabelAsync();
     Console.WriteLine(string.Join(", ", labels));
 }
+
+await using var idxImageFile = await IdxImageFile.LoadAsync(
+    new GZipStream(File.OpenRead("/home/yannik/Downloads/train-images-idx3-ubyte.gz"), CompressionMode.Decompress));
+await using var idxLabelFile = await IdxLabelFile.LoadAsync(
+    new GZipStream(File.OpenRead("/home/yannik/Downloads/train-labels-idx1-ubyte.gz"), CompressionMode.Decompress));
+
+Console.WriteLine($"Image Count: {idxImageFile.ImageCount}");
+Console.WriteLine($"Label Count: {idxLabelFile.LabelCount}");
