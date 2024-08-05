@@ -4,6 +4,8 @@
 using System.IO.Compression;
 using CommunityToolkit.HighPerformance;
 using IdxFileLoader;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.PixelFormats;
 
 await using var idxFile1 = await IdxFile.LoadAsync ("./train-images-idx3-ubyte/train-images.idx3-ubyte");
 await using var idxFile2 = await IdxFile.LoadAsync ("./train-labels-idx1-ubyte/train-labels.idx1-ubyte");
@@ -45,9 +47,9 @@ if (idxFile2 is IdxLabelFile labelFile)
 }
 
 await using var idxImageFile = await IdxImageFile.LoadAsync(
-    new GZipStream(File.OpenRead("/home/yannik/Downloads/train-images-idx3-ubyte.gz"), CompressionMode.Decompress));
+    new GZipStream(File.OpenRead("./train-images-idx3-ubyte.gz"), CompressionMode.Decompress));
 await using var idxLabelFile = await IdxLabelFile.LoadAsync(
-    new GZipStream(File.OpenRead("/home/yannik/Downloads/train-labels-idx1-ubyte.gz"), CompressionMode.Decompress));
+    new GZipStream(File.OpenRead("./train-labels-idx1-ubyte.gz"), CompressionMode.Decompress));
 
 Console.WriteLine($"Image Count: {idxImageFile.ImageCount}");
 Console.WriteLine($"Label Count: {idxLabelFile.LabelCount}");

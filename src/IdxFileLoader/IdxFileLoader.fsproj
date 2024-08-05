@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net7.0</TargetFramework>
+        <TargetFramework>net8.0</TargetFramework>
 
         <Deterministic>true</Deterministic>
         <IncludeSymbols>true</IncludeSymbols>
@@ -10,11 +10,11 @@
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 
-        <Version>1.1.0</Version>
+        <Version>2.0.0</Version>
         <Title>IdxFileLoader</Title>
         <Description>Library for parsing idx files from datasets like MNIST.</Description>
         <PackageTags>IDX;MNIST;DL;AI</PackageTags>
-        <Copyright>Copyright (c) 2023 Y56380X</Copyright>
+        <Copyright>Copyright (c) 2023-2024 Y56380X</Copyright>
         <PackageLicenseFile>LICENSE</PackageLicenseFile>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <Authors>Y56380X</Authors>
@@ -22,6 +22,7 @@
         <RepositoryType>GitHub</RepositoryType>
         
         <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+        <IsAotCompatible Condition="$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net8.0'))">true</IsAotCompatible>
         
     </PropertyGroup>
 
@@ -29,6 +30,10 @@
         <Compile Include="IdxFile.fs" />
         <None Include="../../LICENSE" Pack="true" PackagePath="" />
         <Content Include="../../README.md" Link="README.md" Pack="true" PackagePath="" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Update="FSharp.Core" Version="8.0.301" />
     </ItemGroup>
 
 </Project>
