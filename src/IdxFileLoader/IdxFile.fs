@@ -57,6 +57,12 @@ type IdxFile internal (stream: Stream, info: IdxInfo) =
         do! this.ReadDataSegmentAsync (buffer.AsMemory ())
         return buffer
     }
+    member this.Seek (offset: int64, origin: SeekOrigin) =
+        let offset : int64 =
+            if origin = SeekOrigin.Begin
+            then int64 this.BufferSize * offset + int64 4 + (int64 4 * info.DimensionCounts.LongLength) 
+            else int64 this.BufferSize * offset
+        stream.Seek (offset, origin)
     interface IDisposable with
         member this.Dispose() = stream.Dispose ()
     interface IAsyncDisposable with

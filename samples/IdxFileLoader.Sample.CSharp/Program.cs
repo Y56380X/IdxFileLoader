@@ -17,6 +17,9 @@ Console.WriteLine();
 if (idxFile1 is IdxImageFile imageFile)
 {
     Console.WriteLine($"File 1 contains {imageFile.ImageCount} images ({imageFile.ImageSize})");
+
+    imageFile.Seek(15, SeekOrigin.Begin);
+    imageFile.Seek(25, SeekOrigin.Current);
     
     // Extracting twenty pictures max (for this example)
     var extractCount = imageFile.ImageCount < 20 ? imageFile.ImageCount : 20; 
@@ -35,6 +38,9 @@ if (idxFile1 is IdxImageFile imageFile)
 if (idxFile2 is IdxLabelFile labelFile)
 {
     Console.WriteLine($"File 2 contains {labelFile.LabelCount} labels");
+
+    labelFile.Seek(15, SeekOrigin.Begin);
+    labelFile.Seek(25, SeekOrigin.Current);
     
     // Extracting twenty labels max (for this example)
     var extractCount = labelFile.LabelCount < 20 ? labelFile.LabelCount : 20; 
