@@ -7,8 +7,8 @@ using IdxFileLoader;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 
-await using var idxFile1 = await IdxFile.LoadAsync ("./train-images-idx3-ubyte/train-images.idx3-ubyte");
-await using var idxFile2 = await IdxFile.LoadAsync ("./train-labels-idx1-ubyte/train-labels.idx1-ubyte");
+await using var idxFile1 = await IdxFile.LoadAsync("./train-images-idx3-ubyte/train-images.idx3-ubyte");
+await using var idxFile2 = await IdxFile.LoadAsync("./train-labels-idx1-ubyte/train-labels.idx1-ubyte");
 
 Console.WriteLine($"File 1 is {idxFile1.GetType().Name}");
 Console.WriteLine($"File 2 is {idxFile2.GetType().Name}");
